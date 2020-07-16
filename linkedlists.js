@@ -212,8 +212,8 @@ function findLast(list) {
 
 //What does this program do?
 
-function WhatDoesThisProgramDo(lst) {
-     let current = lst.head;
+function WhatDoesThisProgramDo(list) {
+     let current = list.head;
      while (current !== null) {
           let newNode = current;
           while (newNode.next !== null) {
@@ -227,4 +227,29 @@ function WhatDoesThisProgramDo(lst) {
           current = current.next;
      }
      console.log(current)
+}
+
+//The program removes any duplicates from the list. 
+//It is linear O(n), because it depends on the number of duplicates that are in the list currently.
+
+//5. Reverse a list
+// Write an algorithm to reverse a linked list. The time complexity of your algorithm should be linear (O(n)). 
+// For this exercise, notice we are not asking you just to print the linked list in reverse or use another 
+// linked list to store the value in reverse order. Your program should reverse the direction of a given singly 
+// linked list. In other words, all pointers should point backward. 
+// BONUS: Solve this problem using both recursive and iterative algorithms.
+
+function reverse(node) {
+     if (node == null) {
+          return null
+     }
+     if (node.next == null) {
+          return node.next
+     }
+     let second = node.next;
+     node.next = null;
+     let reversedRest = reverse(second);
+     second.next = node;
+
+     return reversedRest
 }
