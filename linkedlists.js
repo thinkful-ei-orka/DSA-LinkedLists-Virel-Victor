@@ -253,3 +253,28 @@ function reverse(node) {
 
      return reversedRest
 }
+
+// 6. 3rd from the end
+// Write an algorithm to find the 3rd element from the end of a linked list. 
+// Note You may be tempted to add a length property to your linked list class. 
+// The length property is not a typical property of linked list, therefore 
+// don't make any modification to the linked list class that is provided to you.
+
+function thirdFromTheEnd(list) {
+     let third = list.head;
+     let thirdFromEnd = list.head.next.next.next;
+     while(thirdFromEnd !== null) {
+          third = third.next;
+          thirdFromEnd = thirdFromEnd.next;
+     }
+     return third.value
+}
+
+const SLL = new LinkedList()
+SLL.insertFirst('Apollo')
+SLL.insertFirst('Boomer')
+SLL.insertFirst('Helo')
+SLL.insertFirst('Husker')
+SLL.insertFirst('Starbuck')
+
+console.log(thirdFromTheEnd(SLL))
