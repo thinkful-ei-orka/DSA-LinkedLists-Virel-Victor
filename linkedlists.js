@@ -1,4 +1,4 @@
-class _Node {
+class _list {
      constructor(value, next) {
           this.value = value;
           this.next = next;
@@ -11,7 +11,7 @@ class LinkedList {
      }
 
      insertFirst(item) {
-          this.head = new _Node(item, this.head);
+          this.head = new _list(item, this.head);
      }
 
      insertLast(item) {
@@ -19,35 +19,35 @@ class LinkedList {
                this.insertFirst(item);
           }
           else {
-               let tempNode = this.head;
-               while (tempNode.next !== null) {
-                    tempNode = tempNode.next;
+               let templist = this.head;
+               while (templist.next !== null) {
+                    templist = templist.next;
                }
-               tempNode.next = new _Node(item, null);
+               templist.next = new _list(item, null);
           }
      }
 
      find(item) {
           // Start at the head
-          let currNode = this.head;
+          let currlist = this.head;
           // If the list is empty
           if (!this.head) {
                return null;
           }
           // Check for the item 
-          while (currNode.value !== item) {
+          while (currlist.value !== item) {
                /* Return null if it's the end of the list 
                   and the item is not on the list */
-               if (currNode.next === null) {
+               if (currlist.next === null) {
                     return null;
                }
                else {
                     // Otherwise, keep looking 
-                    currNode = currNode.next;
+                    currlist = currlist.next;
                }
           }
           // Found it
-          return currNode;
+          return currlist;
      }
 
      remove(item) {
@@ -55,26 +55,26 @@ class LinkedList {
           if (!this.head) {
                return null;
           }
-          // If the node to be removed is head, make the next node head
+          // If the list to be removed is head, make the next list head
           if (this.head.value === item) {
                this.head = this.head.next;
                return;
           }
           // Start at the head
-          let currNode = this.head;
+          let currlist = this.head;
           // Keep track of previous
-          let previousNode = this.head;
+          let previouslist = this.head;
 
-          while ((currNode !== null) && (currNode.value !== item)) {
-               // Save the previous node 
-               previousNode = currNode;
-               currNode = currNode.next;
+          while ((currlist !== null) && (currlist.value !== item)) {
+               // Save the previous list 
+               previouslist = currlist;
+               currlist = currlist.next;
           }
-          if (currNode === null) {
+          if (currlist === null) {
                console.log('Item not found');
                return;
           }
-          previousNode.next = currNode.next;
+          previouslist.next = currlist.next;
      }
 
      insertBefore(item) {
@@ -83,20 +83,20 @@ class LinkedList {
           }
           else {
                // Start at the head
-               let currNode = this.head;
+               let currlist = this.head;
                // Keep track of previous
-               let previousNode = this.head;
+               let previouslist = this.head;
 
-               while ((currNode !== null) && (currNode.value !== item)) {
-                    // Save the previous node 
-                    previousNode = currNode;
-                    currNode = currNode.next;
+               while ((currlist !== null) && (currlist.value !== item)) {
+                    // Save the previous list 
+                    previouslist = currlist;
+                    currlist = currlist.next;
                }
-               if (currNode === null) {
+               if (currlist === null) {
                     this.insertLast(item)
                     return;
                }
-               previousNode.next = new _Node(item, currNode);
+               previouslist.next = new _list(item, currlist);
           }
      }
 
@@ -105,15 +105,15 @@ class LinkedList {
                this.insertFirst(item)
           }
           else {
-               let currNode = this.head;
-               while ((currNode !== null) && (currNode.value !== value)) {
-                    currNode = currNode.next
+               let currlist = this.head;
+               while ((currlist !== null) && (currlist.value !== value)) {
+                    currlist = currlist.next
                }
-               if (currNode === null) {
+               if (currlist === null) {
                     this.insertLast(item)
                     return;
                }
-               currNode.next = new _Node(item, currNode.next)
+               currlist.next = new _list(item, currlist.next)
           }
      }
 
@@ -125,14 +125,14 @@ class LinkedList {
                this.insertFirst(item)
           }
           else {
-               let currNode = this.head;
+               let currlist = this.head;
                for (let i = 2; i < num; i++) {
-                    if (currNode === null) {
+                    if (currlist === null) {
                          this.insertLast(item)
                          return;
                     }
                }
-               this.insertAfter(item, currNode.value)
+               this.insertAfter(item, currlist.value)
           }
      }
 }
@@ -164,23 +164,23 @@ function main() {
 //display: displays the linked list
 //size: returns the size of the linked list
 //isEmpty: finds if the list is empty or not (without using the size() function)
-//findPrevious: finds the node before the item you are looking for
-//findLast: returns the last node in the linked list
+//findPrevious: finds the list before the item you are looking for
+//findLast: returns the last list in the linked list
 
 function display(head) {
-     let currNode = head
-     while (currNode.next !== null) {
-          currNode = currNode.next
+     let currlist = head
+     while (currlist.next !== null) {
+          currlist = currlist.next
      }
-     return console.log(currNode.value)
+     return console.log(currlist.value)
 }
 
 function size(list) {
      let listSize = 0;
-     let currNode = list.head
-     while (currNode.next !== null) {
+     let currlist = list.head
+     while (currlist.next !== null) {
           listSize++
-          currNode = currNode.next
+          currlist = currlist.next
      }
      listSize++;
      return console.log(listSize)
@@ -194,19 +194,19 @@ function isEmpty(list) {
 }
 
 function findPrevious(item, list) {
-     let currNode = list.head;
-     while (currNode.next.value !== item) {
-          currNode = currNode.next
+     let currlist = list.head;
+     while (currlist.next.value !== item) {
+          currlist = currlist.next
      }
-     return console.log(currNode.value)
+     return console.log(currlist.value)
 }
 
 function findLast(list) {
-     let currNode = list.head;
-     while (currNode.next !== null) {
-          currNode = currNode.next
+     let currlist = list.head;
+     while (currlist.next !== null) {
+          currlist = currlist.next
      }
-     return console.log(currNode.value)
+     return console.log(currlist.value)
 }
 
 
@@ -215,13 +215,13 @@ function findLast(list) {
 function WhatDoesThisProgramDo(list) {
      let current = list.head;
      while (current !== null) {
-          let newNode = current;
-          while (newNode.next !== null) {
-               if (newNode.next.value === current.value) {
-                    newNode.next = newNode.next.next;
+          let newlist = current;
+          while (newlist.next !== null) {
+               if (newlist.next.value === current.value) {
+                    newlist.next = newlist.next.next;
                }
                else {
-                    newNode = newNode.next;
+                    newlist = newlist.next;
                }
           }
           current = current.next;
@@ -239,17 +239,17 @@ function WhatDoesThisProgramDo(list) {
 // linked list. In other words, all pointers should point backward. 
 // BONUS: Solve this problem using both recursive and iterative algorithms.
 
-function reverse(node) {
-     if (node == null) {
+function reverse(list) {
+     if (list == null) {
           return null
      }
-     if (node.next == null) {
-          return node.next
+     if (list.next == null) {
+          return list.next
      }
-     let second = node.next;
-     node.next = null;
+     let second = list.next;
+     list.next = null;
      let reversedRest = reverse(second);
-     second.next = node;
+     second.next = list;
 
      return reversedRest
 }
@@ -277,4 +277,19 @@ SLL.insertFirst('Helo')
 SLL.insertFirst('Husker')
 SLL.insertFirst('Starbuck')
 
-console.log(thirdFromTheEnd(SLL))
+// console.log(thirdFromTheEnd(SLL))
+
+function middlelist(list){
+     if(list.head===null){
+          return null
+     }
+     let one = list.head;
+     let two = list.head;
+
+     while(two !==null && two.next!==null){
+          one = one.next;
+          two = two.next.next;
+     }
+     return one.value
+}
+// console.log(middlelist(SLL))
