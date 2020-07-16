@@ -1,4 +1,4 @@
-class _list {
+class _Node {
      constructor(value, next) {
           this.value = value;
           this.next = next;
@@ -11,7 +11,7 @@ class LinkedList {
      }
 
      insertFirst(item) {
-          this.head = new _list(item, this.head);
+          this.head = new _Node(item, this.head);
      }
 
      insertLast(item) {
@@ -19,35 +19,35 @@ class LinkedList {
                this.insertFirst(item);
           }
           else {
-               let templist = this.head;
-               while (templist.next !== null) {
-                    templist = templist.next;
+               let tempNode = this.head;
+               while (tempNode.next !== null) {
+                    tempNode = tempNode.next;
                }
-               templist.next = new _list(item, null);
+               tempNode.next = new _Node(item, null);
           }
      }
 
      find(item) {
           // Start at the head
-          let currlist = this.head;
+          let currNode = this.head;
           // If the list is empty
           if (!this.head) {
                return null;
           }
           // Check for the item 
-          while (currlist.value !== item) {
+          while (currNode.value !== item) {
                /* Return null if it's the end of the list 
                   and the item is not on the list */
-               if (currlist.next === null) {
+               if (currNode.next === null) {
                     return null;
                }
                else {
                     // Otherwise, keep looking 
-                    currlist = currlist.next;
+                    currNode = currNode.next;
                }
           }
           // Found it
-          return currlist;
+          return currNode;
      }
 
      remove(item) {
@@ -61,20 +61,20 @@ class LinkedList {
                return;
           }
           // Start at the head
-          let currlist = this.head;
+          let currNode = this.head;
           // Keep track of previous
-          let previouslist = this.head;
+          let previousNode = this.head;
 
-          while ((currlist !== null) && (currlist.value !== item)) {
+          while ((currNode !== null) && (currNode.value !== item)) {
                // Save the previous list 
-               previouslist = currlist;
-               currlist = currlist.next;
+               previousNode = currNode;
+               currNode = currNode.next;
           }
-          if (currlist === null) {
+          if (currNode === null) {
                console.log('Item not found');
                return;
           }
-          previouslist.next = currlist.next;
+          previousNode.next = currNode.next;
      }
 
      insertBefore(item) {
@@ -83,20 +83,20 @@ class LinkedList {
           }
           else {
                // Start at the head
-               let currlist = this.head;
+               let currNode = this.head;
                // Keep track of previous
-               let previouslist = this.head;
+               let previousNode = this.head;
 
-               while ((currlist !== null) && (currlist.value !== item)) {
+               while ((currNode !== null) && (currNode.value !== item)) {
                     // Save the previous list 
-                    previouslist = currlist;
-                    currlist = currlist.next;
+                    previousNode = currNode;
+                    currNode = currNode.next;
                }
-               if (currlist === null) {
+               if (currNode === null) {
                     this.insertLast(item)
                     return;
                }
-               previouslist.next = new _list(item, currlist);
+               previousNode.next = new _Node(item, currNode);
           }
      }
 
@@ -105,15 +105,15 @@ class LinkedList {
                this.insertFirst(item)
           }
           else {
-               let currlist = this.head;
-               while ((currlist !== null) && (currlist.value !== value)) {
-                    currlist = currlist.next
+               let currNode = this.head;
+               while ((currNode !== null) && (currNode.value !== value)) {
+                    currNode = currNode.next
                }
-               if (currlist === null) {
+               if (currNode === null) {
                     this.insertLast(item)
                     return;
                }
-               currlist.next = new _list(item, currlist.next)
+               currNode.next = new _Node(item, currNode.next)
           }
      }
 
@@ -125,14 +125,31 @@ class LinkedList {
                this.insertFirst(item)
           }
           else {
-               let currlist = this.head;
+               let currNode = this.head;
                for (let i = 2; i < num; i++) {
-                    if (currlist === null) {
+                    if (currNode === null) {
                          this.insertLast(item)
                          return;
                     }
                }
-               this.insertAfter(item, currlist.value)
+               this.insertAfter(item, currNode.value)
+          }
+     }
+
+     insertCycle(item, next) {
+          if (this.head === null) {
+               this.insertFirst(item)
+          }
+          else {
+               let tempNode = this.head
+               while(tempNode.next!== null) {
+                    tempNode = tempNode.next
+               }
+               let nextNode = this.head
+               while(nextNode.next!==null && nextNode.value!==next) {
+                    nextNode = nextNode.next
+               }
+               tempNode.next = new _Node(item, nextNode)
           }
      }
 }
@@ -158,6 +175,14 @@ function main() {
      SLL.remove('Tauhida')
 
      console.log(SLL)
+
+     const CycleList = new LinkedList()
+     CycleList.insertFirst('Apollo')
+     CycleList.insertFirst('Boomer')
+     CycleList.insertFirst('Helo')
+     CycleList.insertFirst('Husker', 'Helo')
+     cycle.head(cycleList.head)
+
 }
 
 //Supplemental functions
@@ -168,19 +193,19 @@ function main() {
 //findLast: returns the last list in the linked list
 
 function display(head) {
-     let currlist = head
-     while (currlist.next !== null) {
-          currlist = currlist.next
+     let currNode = head
+     while (currNode.next !== null) {
+          currNode = currNode.next
      }
-     return console.log(currlist.value)
+     return console.log(currNode.value)
 }
 
 function size(list) {
      let listSize = 0;
-     let currlist = list.head
-     while (currlist.next !== null) {
+     let currNode = list.head
+     while (currNode.next !== null) {
           listSize++
-          currlist = currlist.next
+          currNode = currNode.next
      }
      listSize++;
      return console.log(listSize)
@@ -194,19 +219,19 @@ function isEmpty(list) {
 }
 
 function findPrevious(item, list) {
-     let currlist = list.head;
-     while (currlist.next.value !== item) {
-          currlist = currlist.next
+     let currNode = list.head;
+     while (currNode.next.value !== item) {
+          currNode = currNode.next
      }
-     return console.log(currlist.value)
+     return console.log(currNode.value)
 }
 
 function findLast(list) {
-     let currlist = list.head;
-     while (currlist.next !== null) {
-          currlist = currlist.next
+     let currNode = list.head;
+     while (currNode.next !== null) {
+          currNode = currNode.next
      }
-     return console.log(currlist.value)
+     return console.log(currNode.value)
 }
 
 
@@ -215,13 +240,13 @@ function findLast(list) {
 function WhatDoesThisProgramDo(list) {
      let current = list.head;
      while (current !== null) {
-          let newlist = current;
-          while (newlist.next !== null) {
-               if (newlist.next.value === current.value) {
-                    newlist.next = newlist.next.next;
+          let newNode = current;
+          while (newNode.next !== null) {
+               if (newNode.next.value === current.value) {
+                    newNode.next = newNode.next.next;
                }
                else {
-                    newlist = newlist.next;
+                    newNode = newNode.next;
                }
           }
           current = current.next;
@@ -293,3 +318,34 @@ function middlelist(list){
      return one.value
 }
 // console.log(middlelist(SLL))
+
+
+// 8. Cycle in a list
+// Write an algorithm to find whether a linked list has a cycle (i.e., 
+// whether a node in the list has its next value pointing to an earlier node 
+// in the list). For this exercise, create a linked list with the name CycleList. 
+// Be sure to insert nodes in the list so that it has a cycle. 
+// Then test your program with a cycleList function.
+
+const CycleList = new LinkedList()
+CycleList.insertFirst('Apollo')
+CycleList.insertFirst('Boomer')
+CycleList.insertFirst('Helo')
+CycleList.insertCycle('Husker', 'Helo')
+cycle(CycleList.head)
+
+function cycle(head) {
+     let two = head
+     let one = head
+
+     while(two.next !== null) {
+          two = two.next.next
+          one = one.next
+
+          if (one === two) 
+          return console.log(true)
+     }
+     return console.log(false)
+}
+
+console.log(cycle(CycleList))
