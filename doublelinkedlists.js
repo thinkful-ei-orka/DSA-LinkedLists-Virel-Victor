@@ -68,18 +68,18 @@ class LinkedList {
           // Start at the head
           let currNode = this.head;
           // Keep track of previous
-          let previousNode = this.head;
+          let prevNode = this.head;
 
           while ((currNode !== null) && (currNode.value !== item)) {
                // Save the previous list 
-               previousNode = currNode;
+               prevNode = currNode;
                currNode = currNode.next;
           }
           if (currNode === null) {
                console.log('Item not found');
                return;
           }
-          previousNode.next = currNode.next;
+          prevNode.next = currNode.next;
      }
 
      insertBefore(item, item2) {
@@ -90,19 +90,19 @@ class LinkedList {
                // Start at the head
                let currNode = this.head;
                // Keep track of previous
-               let previousNode = this.head;
+               let prevNode = this.head;
 
                while ((currNode !== null) && (currNode.value !== item2)) {
                     // Save the previous list 
-                    previousNode = currNode;
+                    prevNode = currNode;
                     currNode = currNode.next;
                }
                if (currNode === null) {
                     this.insert(item)
                     return;
                }
-               previousNode.next = new _Node(item, previousNode, currNode);
-               this.tail = previousNode.next
+               prevNode.next = new _Node(item, prevNode, currNode);
+               this.tail = prevNode.next
           }
      }
 
