@@ -13,11 +13,12 @@ class LinkedList {
      }
 
      insertFirst(item) {
-          this.head = new _Node(item, null, this.head);
-          this.tail = new _Node(item, null, this.head);
+          const newNode = new _Node(item, null, this.head)
+          this.head = newNode;
+          this.tail = newNode;
      }
 
-     insertLast(item) {
+     insert(item) {
           if (this.head === null) {
                this.insertFirst(item);
           }
@@ -97,7 +98,7 @@ class LinkedList {
                     currNode = currNode.next;
                }
                if (currNode === null) {
-                    this.insertLast(item)
+                    this.insert(item)
                     return;
                }
                previousNode.next = new _Node(item, previousNode, currNode);
@@ -137,7 +138,7 @@ class LinkedList {
                this.tail = currNode;
                for (let i = 2; i < num; i++) {
                     if (currNode === null) {
-                         this.insertLast(item)
+                         this.insert(item)
                          return;
                     }
                }
@@ -157,13 +158,13 @@ function mainDLL() {
      const DLL = new LinkedList();
 
      DLL.insertFirst('Aquaria')
-     DLL.insertFirst('Caprica')
-     DLL.insertFirst('Gemenon')
-     DLL.insertFirst('Picon')
-     DLL.insertFirst('Sagittaron')
+     DLL.insert('Caprica')
+     DLL.insert('Gemenon')
+     DLL.insert('Picon')
+     DLL.insert('Sagittaron')
 
      // Add Tauron to the list
-     DLL.insertLast('Tauron')
+     DLL.insert('Tauron')
 
      // Remove Picon from the list
      DLL.remove('Picon')
@@ -172,13 +173,13 @@ function mainDLL() {
 const DLL = new LinkedList();
 
 DLL.insertFirst('Aquaria')
-DLL.insertFirst('Caprica')
-DLL.insertFirst('Gemenon')
-DLL.insertFirst('Picon')
-DLL.insertFirst('Sagittaron')
+DLL.insert('Caprica')
+DLL.insert('Gemenon')
+DLL.insert('Picon')
+DLL.insert('Sagittaron')
 
 // Add Tauron to the list
-DLL.insertLast('Tauron')
+DLL.insert('Tauron')
 
 // Remove Picon from the list
 DLL.remove('Picon')
@@ -197,3 +198,7 @@ function reverse(list) {
      }
      return prevNode;
 }
+
+console.log(DLL)
+console.log(DLL.head)
+console.log(DLL.tail)
